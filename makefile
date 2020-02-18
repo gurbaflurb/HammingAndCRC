@@ -21,7 +21,7 @@ compile-all:
 
 compile-debug:
 	@echo "Compiling 1.1.cpp into executable 1.1"
-	@g++ -o 1.1 src/1.1.cpp -Wall
+	@g++ -o 1.2 src/1.2.cpp -Wall
 
 clean:
 	@echo "Removing executables!"

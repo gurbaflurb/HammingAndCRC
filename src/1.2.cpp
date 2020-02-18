@@ -21,10 +21,35 @@ _____________________________________
 |Use hamming to correct a single bit|
 -------------------------------------
 */
+#define RESET   "\033[0m"
+#define RED     "\033[31m"      /* Red */
+#define BLUE    "\033[34m"      /* Blue */
+#define GREEN   "\033[32m"      /* Green */
 
 #include <iostream>
+#include <string>
+#include <tuple>
+#include <cstdlib>
+#include <cmath>
 
-int main() {
+void printStage(std::string msg) {
+    std::cout << GREEN << "[+] " << RESET << msg << std::endl;
+}
 
+void printStep(std::string msg) {
+    std::cout << BLUE << "[*] " << RESET << msg << std::endl;
+}
+
+void printWarning(std::string warning) {
+    std::cout << RED << "[!] "<< RESET << warning << std::endl;  
+}
+
+int main(int argc, char **argv) {
+    std::cout << "****Running part 1.2 for Project 1****\n" << std::endl;
+    if (argc < 2) {
+        printWarning("Not enough arguments!");
+        std::cout << "    Usage: ./1.2 binaryStream" << std::endl;  
+        exit(-1);
+    }
     return 0;
 }
