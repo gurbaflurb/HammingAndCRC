@@ -12,6 +12,11 @@ These programs were written for CS 4220 Computer Networks at UCCS Spring 2020
 - When you run `make compile-all` you also need to specify the OS you are on. For linux its `make compile-all-linux` and for windows it's `make compile-all-windows`.
 
 ## Self Tests
+### Linux
+Run `make compile-all-linux`. This should compile all the binaries for you. To run the self tests run: `make run-1.1`, `make run-1.2`, `make run-2`.
+### Windows
+Run `make compile-all-windows`. This should compile all the binaries for you. To run the self tests run: `make run-1.1-windows`, `make run-1.2-windows`, `make run-2-windows`.
+
 ### 1.1
 - Input 1001000; output 00110010000
 ```
