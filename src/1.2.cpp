@@ -51,8 +51,8 @@ int main(int argc, char **argv) {
         std::cout << "    Usage: ./1.2 binaryStream" << std::endl;  
         exit(-1);
     }
-    printStage("Inputted bitstream: "+(std::string)argv[1]);
-    printStep("Finding the correct bitsteam");
+    printStage("Input bitstream: "+(std::string)argv[1]);
+    printStep("Finding the correct bitsteam...");
     int invalidBit = -1;
     std::string finalBitStream = argv[1];
     for(int i = 0; i < (signed)finalBitStream.length(); i++) {

@@ -44,12 +44,48 @@ void printWarning(std::string warning) {
     std::cout << RED << "[!] "<< RESET << warning << std::endl;  
 }
 
+int findDegree(std::string generator) {
+    return generator.length() -1;
+}
+
 int main(int argc, char **argv) {
     std::cout << "****Running part 2 for Project 1****\n" << std::endl;
-    if (argc < 2) {
-        printWarning("Not enough arguments!");
-        std::cout << "    Usage: ./2 binaryStream" << std::endl;  
+    if (argc < 3) {
+        printWarning("Not enough arguments!\n    Usage: ./2 binaryStream generator");
         exit(-1);
     }
+    int crcLength = 0;
+    std::string tempBitStream = argv[1];
+
+    printStage("Input bitstream: "+(std::string)argv[1]);
+    printStage("Input CRC: "+(std::string)argv[2]);
+    printStep("Finding CRC Checksum length and appending to the bitstream...");
+    crcLength = findDegree((std::string)argv[2]);
+    for(int i = 0; i < crcLength; i++) {
+        tempBitStream += '0';
+    }
+    printStep("XOR'ing the generator with the bit stream...");
+    for(int i = 0; i < (signed)tempBitStream.length()-crcLength; i++) {
+        if(tempBitStream[i] == '0') {
+                continue;
+            }
+        for(int j = 0; j < crcLength+1; j++) {
+            if(tempBitStream[i+j] == argv[2][j]) {
+                tempBitStream[i+j] = '0';
+            }
+            else {
+                tempBitStream[i+j] = '1';
+            }
+        }
+    }
+    printStage("Bit stream after XOR: "+tempBitStream);
+    std::string crcCheckSum = "";
+    for(int i = tempBitStream.length()-crcLength; i < (signed)tempBitStream.length(); i++) {
+        crcCheckSum += tempBitStream[i];
+    }
+    printStage("CRC Checksum: "+crcCheckSum);
+    printStep("Appending Checksum to original bit stream...");
+    printStage("Final bit stream: "+(std::string)argv[1]+crcCheckSum);
+
     return 0;
 }
