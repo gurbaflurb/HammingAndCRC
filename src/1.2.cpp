@@ -71,34 +71,22 @@ int main(int argc, char **argv) {
                     }
                 }
             }
-            if(parityCount%2) {
-                if(finalBitStream[i] != '1') {
-                    if(invalidBit == -1) {
-                        invalidBit += 1 + i;
-                    }
-                    else {
-                        invalidBit += i;
-                    }
+            if((parityCount%2) != 0) {
+                if(invalidBit == -1) {
+                    invalidBit += 1 + gap;
                 }
-            }
-            else {
-                if (finalBitStream[i] != '0') {
-                    if(invalidBit == -1) {
-                        invalidBit += -1 + i;
-                    }
-                    else {
-                        invalidBit += i;
-                    }
+                else {
+                    invalidBit += gap;
                 }
             }
         }
     }
     if(invalidBit != -1) {
-        if(finalBitStream[invalidBit] == '1') {
-            finalBitStream[invalidBit] = '0';
+        if(finalBitStream[invalidBit-1] == '1') {
+            finalBitStream[invalidBit-1] = '0';
         }
         else {
-            finalBitStream[invalidBit] = '1';
+            finalBitStream[invalidBit-1] = '1';
         }
     }
     printStage("Hamming Code Corrected: "+finalBitStream);
