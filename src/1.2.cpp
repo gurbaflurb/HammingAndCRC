@@ -19,7 +19,7 @@ Input 11110000101; output 1010101
 tl;dr
 _____________________________________
 |Use hamming to correct a single bit|
--------------------------------------
+|___________________________________|
 */
 #define RESET   "\033[0m"
 #define RED     "\033[31m"      /* Red */
@@ -51,5 +51,67 @@ int main(int argc, char **argv) {
         std::cout << "    Usage: ./1.2 binaryStream" << std::endl;  
         exit(-1);
     }
+    printStage("Inputted bitstream: "+(std::string)argv[1]);
+    printStep("Finding the correct bitsteam");
+    int invalidBit = -1;
+    std::string finalBitStream = argv[1];
+    for(int i = 0; i < (signed)finalBitStream.length(); i++) {
+        if(i == 0 || i == 1 || i == 3 || i== 7 || i == 15 || i == 31 || i == 63) {
+            int gap = i+1;
+            int parityCount = 0;
+            for(int j=i; j < (signed)finalBitStream.length(); j+=gap*2) {
+                for(int k = 0; k < gap; k++) {
+                    if((j+k) >(signed)finalBitStream.length()) {
+                        break;
+                    }
+                    else {
+                        if (finalBitStream[j+k] == '1') {
+                            parityCount++;
+                        }
+                    }
+                }
+            }
+            if(parityCount%2) {
+                if(finalBitStream[i] != '1') {
+                    if(invalidBit == -1) {
+                        invalidBit += 1 + i;
+                    }
+                    else {
+                        invalidBit += i;
+                    }
+                }
+            }
+            else {
+                if (finalBitStream[i] != '0') {
+                    if(invalidBit == -1) {
+                        invalidBit += -1 + i;
+                    }
+                    else {
+                        invalidBit += i;
+                    }
+                }
+            }
+        }
+    }
+    if(invalidBit != -1) {
+        if(finalBitStream[invalidBit] == '1') {
+            finalBitStream[invalidBit] = '0';
+        }
+        else {
+            finalBitStream[invalidBit] = '1';
+        }
+    }
+    printStage("Hamming Code Corrected: "+finalBitStream);
+    printStep("Removing parity bits...");
+    std::string originalBits = "";
+    for(int i = 0; i < (signed)finalBitStream.length(); i++) {
+        if(i == 0 || i == 1 || i == 3 || i== 7 || i == 15 || i == 31 || i == 63) {
+            continue;
+        }
+        else {
+            originalBits += finalBitStream[i];
+        }
+    }
+    printStage("Original bits without parity bits: "+originalBits);
     return 0;
 }
