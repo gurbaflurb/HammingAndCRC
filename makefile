@@ -52,7 +52,7 @@ debug-2:
 	@echo "Compiling 2.cpp into executable 2"
 	@g++ -o 2 src/2.cpp -Wall
 
-debug1.1-windows:
+debug-1.1-windows:
 	@echo "Compiling 1.1.cpp into executable 1-1.exe"
 	@g++ -o 1-1.exe src/1.1.cpp -Wall
 
